@@ -1,0 +1,28 @@
+# Ignore NixOS build artifacts
+result
+.nix-defexpr
+.nix-profile
+
+# Ignore NixOS configuration files that are generated or should not be versioned
+/etc/nixos/hardware-configuration.nix
+/etc/nixos/configuration.nix
+
+# Ignore other generated or temporary files
+.cache
+.direnv
+.envrc
+.nix-store
+
+# Ignore symbolic links
+*.symlink
+
+# Ignore encrypted files and secrets
+*.gpg
+*.asc
+secrets.nix
+syncthing-secrets.nix
+
+# Ignore Home Manager generated files
+home-manager-path
+home-manager-generation
+
