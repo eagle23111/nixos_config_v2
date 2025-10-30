@@ -29,19 +29,19 @@
 	    desktop = nixpkgs.lib.nixosSystem {
 	      system = "x86_64-linux";
 	      modules = [
-	        ./configuration.nix
-          ./hardware-configuration.nix
-          #./nixos-modules/nvidia.nix
-          #./nixos-modules/gaming.nix
-          #./nixos-modules/qemu.nix
+	        	./configuration.nix
+          		./hardware-configuration.nix
+          		./nixos-modules/nvidia.nix
+          		./nixos-modules/gaming.nix
+          		./nixos-modules/qemu.nix
 	        home-manager.nixosModules.home-manager
 	        {
 	          home-manager.useGlobalPkgs = true;
 	          home-manager.useUserPackages = true;
 	          home-manager.users.mortal = import ./home.nix;
-            home-manager.users.isolateduser = import ./home_isolated.nix;
-	          home-manager.backupFileExtension = "hm-backup";
-            home-manager.extraSpecialArgs = { inherit inputs;};
+            	  home-manager.users.isolateduser = import ./home_isolated.nix;
+	          home-manager.backupFileExtension = "hm2-backup";
+            	  home-manager.extraSpecialArgs = { inherit inputs;};
 	        }
 	      ];
 	      specialArgs = { inherit inputs;} ;

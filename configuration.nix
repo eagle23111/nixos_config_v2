@@ -9,6 +9,8 @@
 
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.experimental-features = ["nix-command" "flakes"];
+
+	boot.kernelPackages = pkgs.linuxPackages_latest;
 	
 	# === Boot Configuration ===
 	boot.kernelParams = [ "quiet" "splash" ];
@@ -83,10 +85,11 @@
 
 	environment.shells = [ pkgs.zsh ];
 	users.defaultUserShell = pkgs.zsh;
-	
+	  services.nfs.server.enable = true;
 	# === System Packages ===
 	environment.systemPackages = with pkgs; [
 	  wget
+	  
 	];
 
   programs.zsh.enable = true;	  

@@ -1,4 +1,10 @@
 {config, lib, pkgs, inputs, ...}:
+let
+	zen-alias = pkgs.writeShellScriptBin "zen-browser" ''
+		#!/usr/bin/env bash
+		zen
+	'';
+in
 {
 
   home.file = {
@@ -18,9 +24,13 @@
       source = inputs.dotfiles + "/.config/waybar";
       recursive = true;
     };
+  ".config/rofi" = {
+      source = inputs.dotfiles + "/.config/rofi";
+      recursive = true;
+    };
   };
- 
-  programs.zsh.initExtra = ''
+	
+  programs.zsh.initContent = ''
     if [ -z "$SSH_CONNECTION" ] && uwsm check may-start; then
       figlet -f starwars "welcome" | lolcat -p 2 -F 0.2
       echo "Starting uwsm default..."
@@ -29,6 +39,7 @@
     '';
 
   home.packages = with pkgs; [
+    zen-alias
     swww
     rofi
     swaylock

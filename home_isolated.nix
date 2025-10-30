@@ -52,12 +52,6 @@
 
 ];
   
-  programs.git = {
-    enable = true;
-    userName = "eagle23111";
-    userEmail = "stasapohta@yandex.ru";
-  };
-
 
   home.stateVersion = "25.05";
 

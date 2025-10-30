@@ -1,11 +1,9 @@
 { config, pkgs, inputs, ... }:
-
-
 {
   home.username = "mortal";
   home.homeDirectory = "/home/mortal";
   
-
+  
 
   imports = [
     ./home-manager-modules/zsh.nix
@@ -84,13 +82,14 @@
     qimgv
     mpv
     gimp
-
 ];
   
   programs.git = {
     enable = true;
-    userName = "eagle23111";
-    userEmail = "stasapohta@yandex.ru";
+    settings.user = {
+      name = "eagle23111";
+      email = "stasapohta@yandex.ru";
+    };
   };
 
 

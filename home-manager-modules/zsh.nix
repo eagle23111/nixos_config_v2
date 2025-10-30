@@ -2,13 +2,13 @@
 
 let
   hydrusDBpath = "/mnt/media_1/hydrus/db";
-  http_proxy = "http://192.168.1.107:8080";
+  http_proxy = "http://192.168.0.50:3128";
 in 
 {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-	  syntaxHighlighting.enable = true;
+    syntaxHighlighting.enable = true;
     autosuggestion.enable = true;
     oh-my-zsh = {
 	    enable = true;
