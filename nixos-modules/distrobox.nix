@@ -1,6 +1,6 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 {
-    # Enable common container config files in /etc/containers
+  # Enable common container config files in /etc/containers
   virtualisation.containers.enable = true;
   virtualisation = {
     podman = {

@@ -1,9 +1,12 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   home.username = "mortal";
   home.homeDirectory = "/home/mortal";
-  
-  
 
   imports = [
     ./home-manager-modules/zsh.nix
@@ -27,63 +30,37 @@
     # System Utilities
     which # Displays the full path of executable commands
     tree # Prints directory trees in a hierarchical format
-    nix-output-monitor # Monitors NixOS system outputs (exact function unclear)
     transmission_4-gtk
 
-    # Networking Tools
-    iperf3 # Network bandwidth testing tool
-    dnsutils # Tools for querying and troubleshooting DNS
-    nmap # Network scanning and security auditing tool
-    ipcalc # Calculates IP addresses and subnets
-    
-    # Monitoring Tools
-    btop # Lightweight monitoring tool for processes, CPU, memory, etc.
-    iotop # Monitoring I/O usage by processes
-    iftop # Monitoring network interface traffic
-    strace # Traces system calls made by a process
-    ltrace # Traces library calls and arguments of a process
-    lsof # Lists open files and the processes that opened them
+    tor
+    tor-browser
+
     libreoffice-fresh
     jre8
 
-    # Compression Tools
-    zip # Compresses files into .zip format
-    xz # Compresses/decompresses files using XZ format
-    unzip # Extracts files from .zip archives
-    p7zip # Handles 7-zip compressed files
-    xarchiver
-
     # Shells
     zsh # A powerful shell with advanced features
-    
+
     # Programming/Development Tools
-    sysstat # Provides tools for monitoring system performance
-    lm_sensors # Monitors hardware sensors (CPU, RAM, temperatures)
-    ethtool # Configures and displays Ethernet device information
-    pciutils # Tools for managing and querying PCI devices
-    usbutils # Utilities for USB devices management
     devenv
     openssl
     #busybox
-    libvirt
-    virt-manager
-    qemu
-    usbredir
 
     # AI/ML Tools
     nodePackages.nodejs # JavaScript runtime environment (version 23)
     llama-cpp
     lmstudio
-	  inputs.nvchad4nix.packages.${system}.default
+    inputs.nvchad4nix.packages.${system}.default
     # -----
-    hydrus 
+    hydrus
     aria2
     fastfetch
     qimgv
     mpv
     gimp
-];
-  
+    starsector
+  ];
+
   programs.git = {
     enable = true;
     settings.user = {
@@ -92,9 +69,7 @@
     };
   };
 
-
   home.stateVersion = "25.05";
 
   programs.home-manager.enable = true;
 }
-

@@ -1,72 +1,93 @@
-	{ config, lib, pkgs, inputs, ... }:
-	
-	{
-	# === Imports ===
-	imports = [
-		./nixos-modules/hyprland.nix
-		./nixos-modules/nix-ld.nix
-	];
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
-	nixpkgs.config.allowUnfree = true;
-	nix.settings.experimental-features = ["nix-command" "flakes"];
+{
+  # === Imports ===
+  imports = [
+    ./nixos-modules/hyprland.nix
+    ./basic_programs.nix
+    #./nixos-modules/nix-ld.nix
+  ];
+  nixpkgs.config.allowUnfree = true;
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
-	boot.kernelPackages = pkgs.linuxPackages_latest;
-	
-	# === Boot Configuration ===
-	boot.kernelParams = [ "quiet" "splash" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
-	boot.extraModprobeConfig = ''
-		options hid_apple fnmode=2
-	''; 
+  # === Boot Configuration ===
+  boot.kernelParams = [
+    "quiet"
+    "splash"
+  ];
 
-	boot.loader.efi = {
-	  canTouchEfiVariables = true;
-	  efiSysMountPoint = "/boot";
-	};
-	
-	boot.loader.grub = {
-	  enable = true;
-	  efiSupport = true;
-	  device = "nodev";
-	  timeoutStyle = "hidden";
-	};
-	
-	# === Environment Variables ===
-	environment.sessionVariables = {
-	  EDITOR = "nvim";
-	};
-	
-	# === Networking Configuration ===
-	networking.hostName = "my-nixos";
-	networking.networkmanager.enable = true;
-	time.timeZone = "Europe/Moscow";
-	
-	# === Internationalization Configuration ===
-	i18n.defaultLocale = "en_US.UTF-8";
-	
-	# === Console Configuration ===
-	console.useXkbConfig = true;
-	
-	# === X Server Configuration ===
-	services.xserver.xkb = {
-	  layout = "us,ru";
-	  options = "eurosign:e,grp:alt_shift_toggle";
-	};
-	
-	# === Audio and Bluetooth Configuration ===
-	services.pipewire = {
-	  enable = true;
-	  pulse.enable = true;
-	};
-	hardware.bluetooth.enable = true;
-	
-	# === User Configuration ===
-	users.users.mortal = {
-	  isNormalUser = true;
+  boot.extraModprobeConfig = ''
+    		options hid_apple fnmode=2
+    	'';
+
+  boot.loader.efi = {
+    canTouchEfiVariables = true;
+    efiSysMountPoint = "/boot";
+  };
+
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    device = "nodev";
+    timeoutStyle = "hidden";
+  };
+
+  # === Environment Variables ===
+  environment.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
+  # === Networking Configuration ===
+  networking.hostName = "Nixos";
+  networking.networkmanager.enable = true;
+  time.timeZone = "Europe/Moscow";
+
+  # === Internationalization Configuration ===
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  # === Console Configuration ===
+  console.useXkbConfig = true;
+
+  # === X Server Configuration ===
+  services.xserver.xkb = {
+    layout = "us,ru";
+    options = "eurosign:e,grp:alt_shift_toggle";
+  };
+
+  # === Audio and Bluetooth Configuration ===
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+  };
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings.general = {
+      Experimental = true;
+    };
+  };
+
+  # === User Configuration ===
+  users.users.mortal = {
+    isNormalUser = true;
     uid = 1000;
     group = "mortal";
-	  extraGroups = ["wheel" "libvirtd"];
-	};
+    extraGroups = [
+      "wheel"
+      "libvirtd"
+    ];
+  };
 
   users.users.isolateduser = {
     isNormalUser = true;
@@ -81,28 +102,24 @@
     gid = 1001;
   };
 
-  nix.settings.trusted-users = ["root" "mortal"]; 
+  nix.settings.trusted-users = [
+    "root"
+    "mortal"
+  ];
 
-	environment.shells = [ pkgs.zsh ];
-	users.defaultUserShell = pkgs.zsh;
-	  services.nfs.server.enable = true;
-	# === System Packages ===
-	environment.systemPackages = with pkgs; [
-	  wget
-	  
-	];
+  environment.shells = [ pkgs.zsh ];
+  users.defaultUserShell = pkgs.zsh;
+  services.nfs.server.enable = true;
 
-  programs.zsh.enable = true;	  
+  programs.zsh.enable = true;
 
   programs.git = {
     enable = true;
   };
-  
-	# === SSH Configuration ===
-	services.openssh.enable = true;
-	
-	# === State Version ===
-	system.stateVersion = "24.11";
+
+  # === SSH Configuration ===
+  services.openssh.enable = true;
+
+  # === State Version ===
+  system.stateVersion = "24.11";
 }
-
-

@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 {
   virtualisation.libvirtd = {
     enable = true;
@@ -8,10 +8,9 @@
       swtpm.enable = true;
     };
   };
-  
 
   environment.systemPackages = with pkgs; [
     virt-manager
-    usbredir    
+    usbredir
   ];
 }
