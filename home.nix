@@ -8,11 +8,6 @@
   home.username = "mortal";
   home.homeDirectory = "/home/mortal";
 
-  imports = [
-    ./home-manager-modules/zsh.nix
-    ./home-manager-modules/hyprland-user.nix
-  ];
-
   programs.chromium.enable = true;
   home.packages = with pkgs; [
     # Gaming Tools
@@ -22,7 +17,7 @@
     gamescope
     lutris # A game manager that supports running games on Linux, including Windows (via wine)
     prismlauncher
-
+    inputs.zen-browser.packages.${system}.default
     wineWowPackages.stable
     winetricks
     zsh
@@ -58,7 +53,7 @@
     qimgv
     mpv
     gimp
-    starsector
+    kitty
   ];
 
   programs.git = {

@@ -18,6 +18,13 @@ in
       ];
     };
   };
+  programs.zsh.initContent = ''
+    if [ -z "$SSH_CONNECTION" ] && uwsm check may-start; then
+      figlet -f starwars "welcome" | lolcat -p 2 -F 0.2
+      echo "Starting hyprland..."
+      uwsm start default > /dev/null
+    fi
+  '';
   catppuccin.zsh-syntax-highlighting.enable = false;
   home.shellAliases = {
     proxyrun = "HTTP_PROXY=${http_proxy} http_proxy=${http_proxy} HTTPS_PROXY=${http_proxy} https_proxy=${http_proxy}";

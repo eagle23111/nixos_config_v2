@@ -86,6 +86,7 @@
     extraGroups = [
       "wheel"
       "libvirtd"
+      "docker"
     ];
   };
 

@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  programs.dconf.enable = true;
   environment.systemPackages = with pkgs; [
     wget
     neovim
@@ -23,6 +24,12 @@
     pciutils
     usbutils
     nixfmt-rfc-style
+
+    wl-clipboard
+    wl-clipboard-x11
+
+    winboat
+
   ];
   fonts.packages = with pkgs; [
     noto-fonts
@@ -43,5 +50,30 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
+  };
+  services.udisks2.enable = true;
+
+  environment.sessionVariables = {
+    WRL_NO_HARDWARE_CURSORS = "1";
+    NIXOS_OZONE_WL = "1";
+  };
+
+  services.displayManager.enable = true;
+
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+    ];
+  };
+
+  security.pam.services.swaylock = { };
+
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
   };
 }

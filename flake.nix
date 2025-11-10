@@ -46,7 +46,8 @@
             ./nixos-modules/nvidia.nix
             ./nixos-modules/gaming.nix
             ./nixos-modules/qemu.nix
-
+            ./nixos-modules/niri.nix
+            ./nixos-modules/uwsm.nix
             catppuccin.nixosModules.catppuccin
             home-manager.nixosModules.home-manager
             {
@@ -54,10 +55,18 @@
               home-manager.useUserPackages = true;
               home-manager.users.mortal.imports = [
                 ./home.nix
+                ./home-manager-modules/hyprland-user.nix
+                ./home_base.nix
+                ./home-manager-modules/zsh.nix
+
                 catppuccin.homeModules.catppuccin
               ];
               home-manager.users.isolateduser.imports = [
                 ./home_isolated.nix
+                ./home-manager-modules/hyprland-user.nix
+                ./home_base.nix
+                ./home-manager-modules/zsh.nix
+
                 catppuccin.homeModules.catppuccin
               ];
               home-manager.backupFileExtension = "hm2-backup";

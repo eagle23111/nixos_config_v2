@@ -12,64 +12,43 @@ let
     	'';
 in
 {
-
+  imports = [
+    ./kitty.nix
+    ./rofi.nix
+    ./wal.nix
+    ./waybar.nix
+  ];
   home.file = {
     ".config/hypr" = {
       source = inputs.dotfiles + "/.config/hypr";
       recursive = true;
     };
-    ".config/kitty" = {
-      source = inputs.dotfiles + "/.config/kitty";
-      recursive = true;
-    };
-    ".config/wal" = {
-      source = inputs.dotfiles + "/.config/wal";
-      recursive = true;
-    };
-    ".config/waybar" = {
-      source = inputs.dotfiles + "/.config/waybar";
-      recursive = true;
-    };
-    ".config/rofi" = {
-      source = inputs.dotfiles + "/.config/rofi";
-      recursive = true;
-    };
   };
 
-  programs.zsh.initContent = ''
-    if [ -z "$SSH_CONNECTION" ] && uwsm check may-start; then
-      figlet -f starwars "welcome" | lolcat -p 2 -F 0.2
-      echo "Starting uwsm default..."
-      uwsm start default > /dev/null
-    fi
-  '';
-
+  xdg.configFile."uwsm/env".source =
+    "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   home.packages = with pkgs; [
     zen-alias
     swww
-    rofi
     swaylock
-    waybar
     hypridle
     blueman
+    wayland
     udiskie
     swaynotificationcenter
     networkmanagerapplet
     pavucontrol
     hyprcursor
+    hyprland
     hyprshade
     inputs.zen-browser.packages."${system}".default
-    pywal16
-
-    jetbrains-mono
-    nerd-fonts.terminess-ttf
-    terminus_font
-    nerd-fonts.inconsolata
-    dejavu_fonts
-
+    kitty
     figlet
     lolcat
+    uwsm
+    xdg-desktop-portal-hyprland
   ];
+
   catppuccin.enable = true;
   fonts.fontconfig = {
     enable = true;
