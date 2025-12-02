@@ -31,17 +31,27 @@
     winboat
 
   ];
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-color-emoji
-    liberation_ttf
-    fira-code
-    fira-code-symbols
-    mplus-outline-fonts.githubRelease
-    dina-font
-    proggyfonts
-  ];
+  fonts = {
+    fontconfig = {
+      enable = true;
+      defaultFonts.emoji = [
+        "twemoji-color-font"
+        "twitter-color-emoji"
+      ];
+    };
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      liberation_ttf
+      fira-code
+      fira-code-symbols
+      mplus-outline-fonts.githubRelease
+      dina-font
+      proggyfonts
+      twemoji-color-font
+      twitter-color-emoji
+    ];
+  };
   programs.zsh.enable = true;
   programs.git.enable = true;
   services.nfs.server.enable = true;
