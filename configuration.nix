@@ -27,6 +27,7 @@
     "splash"
   ];
 
+  boot.kernelModules = [ "ecryptfs" ];
   boot.extraModprobeConfig = ''
     		options hid_apple fnmode=2
     	'';
@@ -87,9 +88,9 @@
       "wheel"
       "libvirtd"
       "docker"
+        "wireshark"
     ];
   };
-
   users.users.isolateduser = {
     isNormalUser = true;
     uid = 1001;
@@ -107,10 +108,12 @@
     "root"
     "mortal"
   ];
-
   environment.shells = [ pkgs.zsh ];
   users.defaultUserShell = pkgs.zsh;
+
   services.nfs.server.enable = true;
+  programs.ecryptfs.enable = true;
+  security.pam.enableEcryptfs = true;
 
   programs.zsh.enable = true;
 

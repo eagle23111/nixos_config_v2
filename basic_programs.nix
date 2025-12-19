@@ -13,6 +13,8 @@
     ltrace
     lsof
 
+    nix-index
+
     zip
     xz
     unzip
@@ -29,6 +31,8 @@
     wl-clipboard-x11
 
     winboat
+    shotman
+    freerdp
 
   ];
   fonts = {
@@ -69,7 +73,7 @@
   };
 
   services.displayManager.enable = true;
-
+  services.flatpak.enable = true;
   programs.thunar = {
     enable = true;
     plugins = with pkgs.xfce; [
@@ -82,8 +86,32 @@
   virtualisation.docker = {
     enable = true;
     rootless = {
-      enable = true;
+      enable = false;
       setSocketVariable = true;
     };
   };
+
+  programs.proxychains = {
+    enable = true;
+    proxies = {
+      zapretproxy = {
+	enable = true;
+        type = "socks5";
+        host = "192.168.0.50";
+        port = 1080;
+      };
+    };
+    chain.type = "dynamic";
+  };
+
+	programs.wireshark = {
+		enable = true;
+		package = pkgs.wireshark;
+	};
+
+  nixpkgs.overlays = [
+    (import ./overlays/llamacpp.nix)
+    (import ./overlays/hydrus.nix)
+  ];
+
 }

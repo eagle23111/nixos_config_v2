@@ -25,6 +25,9 @@
 
     catppuccin.url = "github:catppuccin/nix";
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-matlab.inputs.nixpkgs.follows = "nixpkgs";
+    nix-matlab.url = "gitlab:doronbehar/nix-matlab";
   };
 
   outputs =
@@ -34,6 +37,7 @@
       hyprland,
       nvchad4nix,
       catppuccin,
+      nix-matlab,
       ...
     }:
     {
